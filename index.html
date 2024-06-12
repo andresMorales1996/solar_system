@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Solar System - DOM Project</title>
+</head>
+<body>
+    <header>
+        <h1>Calculate the weight of an object on a planet</h1>
+    </header>
+    
+    <div id="container">
+        <span >
+            <input type="text" id="mass" class="content" placeholder="Mass in kilogram">
+        </span>
+
+        <span id="select">
+            <form action="#">
+                <select name="lenguajes" id="planets" class="content">
+                  <option value='empty' disabled selected >--select planet--</option>
+                  <option value="Moon">Moon</option>
+                  <option value="Mercury">Mercury</option>
+                  <option value="Venus">Venus</option>
+                  <option value="Earth">Earth</option>
+                  <option value="Mars">Mars</option>
+                  <option value="Jupiter">Jupiter</option>
+                  <option value="Saturn">Saturn</option>
+                  <option value="Uranus">Uranus</option>
+                  <option value="Neptune">Neptune</option>
+                  <option value="Pluto">Pluto</option>
+                </select>
+          </form>
+        </span>
+        
+        <span id="spanButton" >
+            <button id="calcButton" class="content">Calculate weight</button>
+        </span>
+    </div>
+
+    
+
+    <div id="injected">
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        let massP = document.querySelector('#mass');
+        const button = document.querySelector('#calcButton');
+        let planetA = document.querySelector('#planets');
+
+        let injected = document.getElementById('injected');
+        injected.style.display = 'flex';
+        injected.style.justifyContent = 'center';
+
+        
+        button.addEventListener('click', () => {
+            let mass = parseFloat(massP.value);
+            let planet = planetA.value.toUpperCase();
+            let selectedOption = planetA.value.toLowerCase();
+            let injected = document.getElementById('injected');
+            const gravity = {
+                moon: 1.62,
+                mercury: 3.7,
+                venus: 8.87,
+                earth: 9.8,
+                mars:3.71,
+                jupiter: 24.79, 
+                saturn: 10.44,
+                uranus: 8.87,
+                neptune: 11.15,
+                pluto: 0.62,
+
+                };
+                
+            const errorMessage = document.getElementById('error-message');
+
+
+            let tempNum = (mass * gravity[selectedOption]) / 9.8.toFixed(2);
+            let numRes = tempNum.toFixed(1);
+            
+            
+            
+            if (isNaN(mass) || planet === 'EMPTY'){
+
+                errorMessage.style.height = '200px';
+                errorMessage.style.width = '150vh';
+                errorMessage.style.display = 'flex';
+                errorMessage.style.alignItems = 'center';
+                errorMessage.style.justifyContent = 'center';
+                errorMessage.style.backgroundColor = 'rgba(155, 155, 155, 0.2)';
+
+                let errorContent = document.createElement('div');
+                errorContent.textContent = 'Please add the complete data';
+                errorContent.style.fontSize = '4vh';
+                errorContent.style.height = '15vh';
+                errorContent.style.width = '100vh';
+                errorContent.style.display = 'flex';
+                errorContent.style.alignItems = 'center';
+                errorContent.style.justifyContent = 'center';
+                errorContent.style.color = 'white';
+                errorContent.style.backgroundColor = 'rgba(155, 155, 155, 0.2)';
+
+                errorMessage.appendChild(errorContent);
+
+
+            } else {
+            
+            injected.innerHTML = '';
+
+                //Creación del div principal
+            let mainDiv = document.createElement('div');
+            mainDiv.id = 'maindiv';
+            mainDiv.style.display = 'flex';
+            mainDiv.style.height = '400px';
+            mainDiv.style.width = '150vh';
+            mainDiv.style.backgroundColor = 'rgba(155, 155, 155, 0.2)';
+            mainDiv.style.borderRadius = '5px';
+            injected.appendChild(mainDiv);
+
+
+            //Creación del div de la imagen
+            let imageDiv = document.createElement('div');
+            imageDiv.id = 'imagediv';
+            imageDiv.style.display = 'flex';
+            imageDiv.style.alignItems = 'center';
+            imageDiv.style.justifyContent = 'center';
+            imageDiv.style.height = '390px';
+            imageDiv.style.width = '85vh';
+            imageDiv.style.backgroundColor = 'rgba(155, 155, 155, 0)';
+            imageDiv.style.borderRadius = '5px';
+            mainDiv.appendChild(imageDiv);
+
+            //adición de la imagen del planeta
+            let img = document.createElement('img');
+            img.src = `./Images/${selectedOption}.png`;
+            img.style.width = '60vh';
+            img.style.height = '60vh';
+            img.style.objectFit = 'cover';
+            imageDiv.appendChild(img);
+
+            
+            //Creación del div de la respuesta
+            let resDiv = document.createElement('div');
+            resDiv.textContent = 'The weight of the object on ' + planet;
+            resDiv.style.fontSize = '4vh';
+            resDiv.id = 'resdiv';
+            resDiv.style.display = 'flex';
+            resDiv.style.flexDirection = 'column';
+            resDiv.style.alignSelf = 'center';
+            resDiv.style.alignItems = 'center';
+            resDiv.style.justifyContent = 'center';
+            resDiv.style.marginRight = '20px';
+            resDiv.style.height = '200px';
+            resDiv.style.width = '90vh';
+            resDiv.style.color = 'white';
+            resDiv.style.backgroundColor = 'rgba(155, 155, 155, 0.2)';
+            resDiv.style.borderRadius = '5px';
+            mainDiv.appendChild(resDiv);
+
+
+            //Creación del div del número
+            let numDiv = document.createElement('div');
+            numDiv.textContent = numRes + ' kg';
+            numDiv.id = 'numdiv';
+            numDiv.style.display = 'flex';
+            numDiv.style.justifyContent = 'center';
+            numDiv.style.alignItems = 'center';
+            numDiv.style.height = '15vh';
+            numDiv.style.width = '15vh';
+            numDiv.style.color = 'white';
+            numDiv.style.margin = '10px'
+            numDiv.style.backgroundColor = 'rgba(155, 155, 155, 0.3)';
+            numDiv.style.borderRadius = '100%';
+            resDiv.appendChild(numDiv);
+
+            }
+        
+            
+        });
+
+    </script>
+
+</body>
+</html>

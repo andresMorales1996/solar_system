@@ -1,0 +1,72 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 62.5;
+}
+
+html{
+    background-image: url(./Images/galaxy.gif);
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+}
+
+header h1{
+    margin: 30px;
+    font-family: arial;
+    text-shadow: 2px 2px grey;
+}
+
+#container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+    
+}
+
+.content{
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+
+#mass{
+    height: 40px;
+    width: 200px;
+}
+
+input:focus{
+    outline-style: none;
+}
+
+#planets{
+    height: 40px;
+    width: 150px;
+    text-align: center;
+    color: grey;
+}
+
+#calcButton{
+    height: 40px;
+    width: 120px;
+    background-color: grey;
+    color: white;
+    font-weight: 100;
+    opacity: 80%;
+    font-weight: bolder;
+    padding: 2px;
+};
+
+
+
+
+
